@@ -1,4 +1,8 @@
-h6x_internship_gazebo:
-  ubuntu: [ros-humble-h6x-internship-gazebo]
-sample_rviz_plugins:
-  ubuntu: [ros-humble-sample-rviz-plugins]
+vizanti_demos:
+  ubuntu: [ros-humble-vizanti-demos]
+vizanti_msgs:
+  ubuntu: [ros-humble-vizanti-msgs]
+vizanti_server:
+  ubuntu: [ros-humble-vizanti-server]
+vizanti:
+  ubuntu: [ros-humble-vizanti]
