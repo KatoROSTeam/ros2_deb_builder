@@ -2,11 +2,11 @@
 
 ## How does it work?
 
-Some of you may already know, but just following [this official documentation](https://docs.ros.org/en/galactic/How-To-Guides/Building-a-Custom-Debian-Package.html) cannot build private ros2 packages because it cannot resolve dependencies of private packages. The following image is the result of running `bloom-generate rosdebian` in `h6x_internship_gazebo` package. Even if you continue this, bloom-generate cannot resolve this dependency problem. This seems to be because `bloom-generate` tries to resolve dependencies with `rosdep`, and `rosdep` tries to find the dependencies with the name of the debian package (not the name of ros2 package).
+Some of you may already know, but just following [this official documentation](https://docs.ros.org/en/humble/How-To-Guides/Building-a-Custom-Debian-Package.html) cannot build private ros2 packages because it cannot resolve dependencies of private packages. The following image is the result of running `bloom-generate rosdebian` in `h6x_internship_gazebo` package. Even if you continue this, bloom-generate cannot resolve this dependency problem. This seems to be because `bloom-generate` tries to resolve dependencies with `rosdep`, and `rosdep` tries to find the dependencies with the name of the debian package (not the name of ros2 package).
 
 ![cannot-reslve-rosdep-key](./img/bloom-generate-cannot-resolve-rosdep-key.png)
 
-To solve this problem, this `ros2_deb_builder` makes a correspondence table of ros2 packages and debian packages and makes rosdep to import it. This is done in [update-rosdep.bash](../script/update-rosdep.bash). This script creates `/etc/ros/rosdep/sources.list.d/50-my-packages.list` and it references [my_rosdep.yaml](../ws_galactic/my_rosdep.yaml), which contains the correspondence table.
+To solve this problem, this `ros2_deb_builder` makes a correspondence table of ros2 packages and debian packages and makes rosdep to import it. This is done in [update-rosdep.bash](../script/update-rosdep.bash). This script creates `/etc/ros/rosdep/sources.list.d/50-my-packages.list` and it references [my_rosdep.yaml](../ws_humble/my_rosdep.yaml), which contains the correspondence table.
 
 ### Order of building packages
 
@@ -18,7 +18,7 @@ But how can we know the order of dependencies? This sounds a bit complicated, bu
 
 ## How does the name change from ros2 package to debian package?
 
-After building debian packages, the name of the package changes. If the name of your ros2 package is `h6x_internship_gazeo`, then the name of debian package will be `ros-galactic-h6x-internship-gazebo`.
+After building debian packages, the name of the package changes. If the name of your ros2 package is `h6x_internship_gazeo`, then the name of debian package will be `ros-humble-h6x-internship-gazebo`.
 
 This rule may not be perfect, but it seems like the name changes as:
 

@@ -1,5 +1,0 @@
-repositories:
-  h6x-Internship:
-    type: git
-    url: git@github.com:HarvestX/h6x-Internship.git
-    version: main

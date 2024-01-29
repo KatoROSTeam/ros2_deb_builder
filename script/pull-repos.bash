@@ -2,7 +2,7 @@
 
 set -e
 echo "pull-repos.bash: START"
-pushd $WS_GALACTIC
+pushd $WS_HUMBLE
 
 vcs import \
   --recursive \
@@ -12,5 +12,5 @@ vcs pull \
   ./src
 
 find ./src/ -name \*.repos -exec vcs import --recursive --input {} ./src \;
-popd # $WS_GALACTIC
+popd # $WS_HUMBLE
 echo "pull-repos.bash: DONE"

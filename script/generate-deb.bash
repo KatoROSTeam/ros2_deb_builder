@@ -2,7 +2,7 @@
 
 set -e
 echo "generate-deb.bash: START"
-pushd $WS_GALACTIC
+pushd $WS_HUMBLE
 
 # change IFS to iterate over lines instead of words
 IFS_ORIGINAL=$IFS
@@ -12,7 +12,7 @@ PKG_LIST=$(colcon list -t)
 for ITEM in $PKG_LIST; do
   PKG_NAME=$(echo $ITEM | awk '{ print $1 }')
   PKG_PATH=$(echo $ITEM | awk '{ print $2 }')
-  DEB_NAME=$(echo $PKG_NAME | sed -e 's/_/-/g' | sed -e 's/\(.*\)/\L\1/' | sed -e 's/^/ros-galactic-/g')
+  DEB_NAME=$(echo $PKG_NAME | sed -e 's/_/-/g' | sed -e 's/\(.*\)/\L\1/' | sed -e 's/^/ros-humble-/g')
   
   pushd $PKG_PATH
   bloom-generate rosdebian
@@ -25,12 +25,12 @@ IFS=$IFS_ORIGINAL
 
 # check result
 NUM_OF_PKG=$(colcon list -t | wc -l)
-NUM_OF_DEB=$(find $WS_GALACTIC/src/ -name \*.deb | wc -l)
+NUM_OF_DEB=$(find $WS_HUMBLE/src/ -name \*.deb | wc -l)
 echo "generate-deb.bash: generated $NUM_OF_DEB / $NUM_OF_PKG packages."
 if [ $NUM_OF_PKG != $NUM_OF_DEB ]; then
   echo "generate-deb.bash: [ERROR] failed to build some of the targets."
   exit 1
 fi
 
-popd # $WS_GALACTIC
+popd # $WS_HUMBLE
 echo "generate-deb.bash: DONE"

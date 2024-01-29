@@ -1,0 +1,5 @@
+repositories:
+  vizanti:
+    type: git
+    url: git@github.com:KatoROSTeam/vizanti.git
+    version: feature_mode_buttons

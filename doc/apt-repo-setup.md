@@ -35,7 +35,7 @@ sudo apt-get update
 If you don't receive any errors, you can now install any packages from apt repository.
 
 ```sh
-sudo apt-get install ros-galactic-h6x-internship-gazebo
+sudo apt-get install ros-humble-h6x-internship-gazebo
 ```
 
 ## Add rosdep source
@@ -45,5 +45,5 @@ The following command adds rosdep source so that rosdep can resolve rosdep keys 
 ```sh
 echo "yaml http://localhost/rosdep/my_rosdep.yaml" \
   | sudo tee /etc/ros/rosdep/sources.list.d/50-my-packages.list > /dev/null
-rosdep update --rosdistro galactic
+rosdep update --rosdistro humble
 ```

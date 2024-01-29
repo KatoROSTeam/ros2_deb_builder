@@ -2,7 +2,7 @@
 
 set -e
 echo "clean-deb.bash: START"
-pushd $WS_GALACTIC
+pushd $WS_HUMBLE
 
 # change IFS to iterate over lines instead of words
 IFS_ORIGINAL=$IFS
@@ -12,7 +12,7 @@ PKG_PATH=$(colcon list -t)
 for ITEM in $PKG_PATH; do
   PKG_NAME=$(echo $ITEM | awk '{ print $1 }')
   PKG_PATH=$(echo $ITEM | awk '{ print $2 }')
-  DEB_NAME=$(echo $PKG_NAME | sed -e 's/_/-/g' | sed -e 's/\(.*\)/\L\1/' | sed -e 's/^/ros-galactic-/g')
+  DEB_NAME=$(echo $PKG_NAME | sed -e 's/_/-/g' | sed -e 's/\(.*\)/\L\1/' | sed -e 's/^/ros-humble-/g')
 
   pushd $PKG_PATH
 
@@ -41,5 +41,5 @@ done
 
 IFS=$IFS_ORIGINAL
 
-popd # $WS_GALACTIC
+popd # $WS_HUMBLE
 echo "clean-deb.bash: DONE"

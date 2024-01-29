@@ -5,7 +5,7 @@ Build debian package from ROS2 package, and create apt repository for distributi
 ## Environment
 
 - Docker
-- ROS2 Galactic
+- ROS2 humble
 
 ## Build Docker Image
 
@@ -13,7 +13,7 @@ Run the following commands.
 
 ```sh
 cd docker/
-docker build --build-arg USERNAME=$(whoami) --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) . -t ros2-deb-builder:galactic
+docker build --build-arg USERNAME=$(whoami) --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) . -t ros2-deb-builder:humble
 ```
 
 ## Prepare for Building
@@ -24,7 +24,7 @@ Please create a GPG key pair and put public key in `repos/gpg` and private key i
 
 ### The List of repositories to build
 
-This build tool uses vcs to pull repositories, and the target file is `ws_galactic/src.repos`. Please fill it before proceeding. If you add private repositories, please make sure you have the proper ssh key in your host machine (`~/.ssh/`). Docker container tries to mount this directory to pull private repositories.
+This build tool uses vcs to pull repositories, and the target file is `ws_humble/src.repos`. Please fill it before proceeding. If you add private repositories, please make sure you have the proper ssh key in your host machine (`~/.ssh/`). Docker container tries to mount this directory to pull private repositories.
 
 ## Run Docker Container
 
@@ -34,7 +34,7 @@ Run the following commands.
 cd {path_to_ros2_deb_builder}
 docker run -it \
   -v /home/$(whoami)/.ssh:/home/$(whoami)/.ssh \
-  -v `pwd`:/home/$(whoami)/ros2_deb_builder ros2-deb-builder:galactic
+  -v `pwd`:/home/$(whoami)/ros2_deb_builder ros2-deb-builder:humble
 ```
 
 ### Run apt Repository
@@ -57,5 +57,5 @@ Frequently asked questions are [here](./doc/faq.md).
 ## References
 
 - [Creating and hosting your own deb packages and apt repo](https://earthly.dev/blog/creating-and-hosting-your-own-deb-packages-and-apt-repo/)
-- [Building a custom Debian package](https://docs.ros.org/en/galactic/How-To-Guides/Building-a-Custom-Debian-Package.html)
+- [Building a custom Debian package](https://docs.ros.org/en/humble/How-To-Guides/Building-a-Custom-Debian-Package.html)
 - [Generate deb from dependent res package locally](https://answers.ros.org/question/280213/generate-deb-from-dependent-res-package-locally/#280235)
