@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.5.2-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
 
 ARG USERNAME=ros2-deb-builder
 ARG USER_UID=1000
@@ -14,11 +14,11 @@ RUN apt-get update \
  && locale-gen en_US en_US.UTF-8 \
  && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
-# install ros galactic
+# install ros humble
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu focal main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null \
  && apt-get update \
- && apt-get install -y ros-galactic-ros-base ros-dev-tools \
+ && apt-get install -y ros-humble-ros-base ros-dev-tools \
  && apt-get install -y python3-bloom python3-rosdep fakeroot
 
 # create user
@@ -31,13 +31,13 @@ RUN groupadd --gid $USER_GID $USERNAME \
 USER $USERNAME
 WORKDIR /home/$USERNAME
 
-# setup ros galactic
-RUN . /opt/ros/galactic/setup.sh \
+# setup ros humble
+RUN . /opt/ros/humble/setup.sh \
  && sudo rosdep init \
- && rosdep update --rosdistro galactic
+ && rosdep update --rosdistro humble
 
 # set env
-ENV WS_GALACTIC /home/$USERNAME/ros2_deb_builder/ws_galactic
+ENV WS_HUMBLE /home/$USERNAME/ros2_deb_builder/ws_humble
 ENV REPOS_DIR /home/$USERNAME/ros2_deb_builder/repos
 ENV SCRIPT_DIR /home/$USERNAME/ros2_deb_builder/script
 ENV EXT_DIR /home/$USERNAME/ros2_deb_builder/external
